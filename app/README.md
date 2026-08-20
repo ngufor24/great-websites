@@ -1,5 +1,7 @@
 # 237booking
 
+Live at: https://237booking.vercel.app
+
 A booking.com-style stays marketplace: search, property listings, room-level booking, guest accounts, and a host dashboard for listing properties.
 
 Built with Next.js 16 (App Router), TypeScript, Tailwind CSS, PostgreSQL + Prisma 7, and Auth.js (NextAuth v5) with credentials-based login.
