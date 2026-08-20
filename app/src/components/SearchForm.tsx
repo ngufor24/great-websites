@@ -44,34 +44,36 @@ export default function SearchForm({
         onChange={(e) => setDestination(e.target.value)}
         className="flex-1 min-w-0 rounded px-4 py-3 text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand"
       />
-      <div className="flex gap-2">
-        <label className="flex-1 flex flex-col justify-center bg-white rounded px-3 py-1.5">
-          <span className="text-[10px] font-semibold text-neutral-500 uppercase">
-            Check-in
-          </span>
-          <input
-            type="date"
-            required
-            value={checkIn}
-            min={todayISO()}
-            onChange={(e) => setCheckIn(e.target.value)}
-            className="text-sm text-neutral-900 focus:outline-none"
-          />
-        </label>
-        <label className="flex-1 flex flex-col justify-center bg-white rounded px-3 py-1.5">
-          <span className="text-[10px] font-semibold text-neutral-500 uppercase">
-            Check-out
-          </span>
-          <input
-            type="date"
-            required
-            value={checkOut}
-            min={checkIn}
-            onChange={(e) => setCheckOut(e.target.value)}
-            className="text-sm text-neutral-900 focus:outline-none"
-          />
-        </label>
-        <label className="flex flex-col justify-center bg-white rounded px-3 py-1.5">
+      <div className="flex flex-col sm:flex-row gap-2">
+        <div className="grid grid-cols-2 gap-2 flex-1 min-w-0">
+          <label className="min-w-0 flex flex-col justify-center bg-white rounded px-3 py-1.5">
+            <span className="text-[10px] font-semibold text-neutral-500 uppercase">
+              Check-in
+            </span>
+            <input
+              type="date"
+              required
+              value={checkIn}
+              min={todayISO()}
+              onChange={(e) => setCheckIn(e.target.value)}
+              className="w-full min-w-0 text-sm text-neutral-900 focus:outline-none"
+            />
+          </label>
+          <label className="min-w-0 flex flex-col justify-center bg-white rounded px-3 py-1.5">
+            <span className="text-[10px] font-semibold text-neutral-500 uppercase">
+              Check-out
+            </span>
+            <input
+              type="date"
+              required
+              value={checkOut}
+              min={checkIn}
+              onChange={(e) => setCheckOut(e.target.value)}
+              className="w-full min-w-0 text-sm text-neutral-900 focus:outline-none"
+            />
+          </label>
+        </div>
+        <label className="sm:w-28 flex flex-col justify-center bg-white rounded px-3 py-1.5">
           <span className="text-[10px] font-semibold text-neutral-500 uppercase">
             Guests
           </span>
@@ -81,7 +83,7 @@ export default function SearchForm({
             max={20}
             value={guests}
             onChange={(e) => setGuests(Number(e.target.value))}
-            className="text-sm text-neutral-900 w-16 focus:outline-none"
+            className="w-full text-sm text-neutral-900 focus:outline-none"
           />
         </label>
       </div>

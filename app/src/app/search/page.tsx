@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import PropertyCard, { PropertyCardData } from "@/components/PropertyCard";
 import SearchForm from "@/components/SearchForm";
 import { Prisma } from "@prisma/client";
+import Link from "next/link";
 
 const PROPERTY_TYPES = ["HOTEL", "APARTMENT", "VILLA", "RESORT", "GUESTHOUSE"] as const;
 
@@ -26,10 +27,16 @@ export default async function SearchPage({
         <h1 className="text-2xl font-bold mb-2">
           {category === "cars" ? "Car rental" : "Flights"} coming soon
         </h1>
-        <p className="text-neutral-500">
+        <p className="text-neutral-500 mb-6">
           We&apos;re currently focused on stays. Check back soon for{" "}
           {category === "cars" ? "car rental" : "flight"} search.
         </p>
+        <Link
+          href="/search?category=stays"
+          className="inline-block bg-brand hover:bg-brand-light text-white font-semibold px-5 py-2.5 rounded"
+        >
+          Search stays instead
+        </Link>
       </div>
     );
   }
