@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  GUEST
+  HOST
+  ADMIN
+}
+
+enum PropertyType {
+  HOTEL
+  APARTMENT
+  VILLA
+  RESORT
+  GUESTHOUSE
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(GUEST)
+  image        String?
+  createdAt    DateTime @default(now())
+
+  properties Property[]
+  bookings   Booking[]
+  reviews    Review[]
+}
+
+model Property {
+  id          String       @id @default(cuid())
+  host        User         @relation(fields: [hostId], references: [id])
+  hostId      String
+  title       String
+  description String
+  type        PropertyType
+  city        String
+  country     String
+  address     String
+  images      String[]
+  amenities   String[]
+  maxGuests   Int
+  bedrooms    Int
+  bathrooms   Int
+  createdAt   DateTime     @default(now())
+
+  rooms    Room[]
+  bookings Booking[]
+  reviews  Review[]
+
+  @@index([city])
+  @@index([type])
+}
+
+model Room {
+  id            String   @id @default(cuid())
+  property      Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId    String
+  name          String
+  pricePerNight Decimal  @db.Decimal(10, 2)
+  maxGuests     Int
+  quantity      Int
+  amenities     String[]
+
+  bookings Booking[]
+
+  @@index([propertyId])
+}
+
+model Booking {
+  id         String        @id @default(cuid())
+  user       User          @relation(fields: [userId], references: [id])
+  userId     String
+  property   Property      @relation(fields: [propertyId], references: [id])
+  propertyId String
+  room       Room          @relation(fields: [roomId], references: [id])
+  roomId     String
+  checkIn    DateTime
+  checkOut   DateTime
+  guests     Int
+  totalPrice Decimal       @db.Decimal(10, 2)
+  status     BookingStatus @default(CONFIRMED)
+  createdAt  DateTime      @default(now())
+
+  @@index([propertyId])
+  @@index([userId])
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId String
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  rating     Int
+  comment    String
+  createdAt  DateTime @default(now())
+
+  @@index([propertyId])
+}
