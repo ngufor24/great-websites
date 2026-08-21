@@ -62,18 +62,18 @@ export default async function Home() {
           <h2 className="text-xl font-bold text-neutral-900 mb-4">
             Popular destinations
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-px-4 -mx-6 px-6 pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {destinations.map((d) => (
               <Link
                 key={d.city}
                 href={`/search?destination=${encodeURIComponent(d.city)}`}
-                className="group relative h-32 rounded-lg overflow-hidden block"
+                className="group relative h-32 w-36 sm:w-44 shrink-0 snap-start rounded-lg overflow-hidden block"
               >
                 <Image
                   src={d.image}
                   alt={d.city}
                   fill
-                  sizes="(min-width: 640px) 25vw, 50vw"
+                  sizes="(min-width: 640px) 176px, 144px"
                   className="object-cover group-hover:scale-105 transition-transform"
                 />
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors" />
